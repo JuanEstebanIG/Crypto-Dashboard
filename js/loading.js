@@ -1,12 +1,3 @@
-function allCards(card){
-    let template = "";
-
-    for(let i =0 ; i < 10; i++){
-        template += card ;
-    };
-    return template;
-};
-
 export function skeletonCard(){
     const template =`
     <article class="card card__skeleton">
@@ -20,7 +11,7 @@ export function skeletonCard(){
 
     let htmlCards = document.createElement("div");
     htmlCards.classList.add("cards","container__skeleton-cards");
-    htmlCards.innerHTML = allCards(template);
+    htmlCards.innerHTML = template.repeat(20);
     
     return htmlCards
 };

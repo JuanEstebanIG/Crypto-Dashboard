@@ -1,7 +1,6 @@
-import { cacheCoins } from "./main.js";
+import { env} from "./cacheManagement.js";
 import { createComparativeChart } from "./chart.js";
 import { renderError } from "./errors.js";
-
 
 const DOMElements ={
     selects:{
@@ -19,11 +18,10 @@ const currentsOptions={
 /**
  * @description - llena los selects de la seccion de comparacion con los datos de las monedas cargadas en cache.
  */
-
 export function fillSelects() {
     const fragment = document.createDocumentFragment();
     
-    cacheCoins.values().forEach(
+    env.cacheCoins.values().forEach(
         (coin) => {
             const option = document.createElement("option");
             option.value = coin.id;
@@ -35,10 +33,6 @@ export function fillSelects() {
     DOMElements.selects.first.appendChild(fragment.cloneNode(true));
     DOMElements.selects.second.appendChild(fragment);
 };
-
-const  canvas = document.getElementById("canvasComparation");
-createComparativeChart(canvas,"binancecoin","ethereum","binancecoin", "ethereum");
-
 
 /**
  * @description - desactiva y activa dinamicamente las opciones de comparacion segun la ineteraccion del usuario.
@@ -60,6 +54,8 @@ function handlerOption(target){
  * @description - modifica el grafico de comparacion con las monedas actules seleccionadas
  */
 function comparative(){
+
+    const canvas = document.getElementById("canvasComparation");
     const firstVal = DOMElements.selects.first.value;
     const secondVal = DOMElements.selects.second.value;
 
@@ -72,7 +68,7 @@ function comparative(){
         return       
     };
 
-    createComparativeChart(canvas,firstVal,secondVal, cacheCoins.get(firstVal).name, cacheCoins.get(secondVal).name );
+    createComparativeChart(canvas ,firstVal,secondVal, env.cacheCoins.get(firstVal).name, env.cacheCoins.get(secondVal).name );
 };
 
 DOMElements.selects.first.addEventListener("change",(e)=> handlerOption(e.target));

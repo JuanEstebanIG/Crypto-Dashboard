@@ -4,53 +4,53 @@ import {fillSelects} from "./comparative.js";
 import {renderError } from "./errors.js";
 import {createFavoriteCard ,updateFavoritePrice} from "./favorites.js";
 import {skeletonCard } from "./loading.js";
-
-const env ={
-    containerCards: document.getElementById("containerCards"),
-    containerTopCoin: document.getElementById("topCoin")
-}
-
-export const cacheCoins = new Map;
-
+import { env } from "./cacheManagement.js";
 
 export const storageManager = {
     initStorage:()=>{
-        if(localStorage.getItem("favoriteCoins") == null) localStorage.setItem("favoriteCoins", JSON.stringify({}))
+        try{
+            if(localStorage.getItem("favoriteCoins") == null) localStorage.setItem("favoriteCoins", JSON.stringify({}))
+        }catch(err){
+            console.error(err)
+        };
     },
     readStorage: ()=>{
         try{
             return JSON.parse(localStorage.getItem("favoriteCoins"));
-        }catch{
+        }catch(err){
+            console.error(err)
             return {};
         };
     },
     updateStorage: (data)=>{
         try{
             localStorage.setItem("favoriteCoins", JSON.stringify(data));
-        }catch{
+        }catch(err){
+            console.error(err)
             renderError("No se pudo actualizar la lista de favoritos.");
         }
     }
 };
 
 function renderTopCoin(data){
-
+    const containerTopCoin = document.getElementById("topCoin");
     const template =`
             <img src="${data.image}" alt="" class="topcoin__img">
             <h3 class="topcoin__name" >${data.name} <span class="topcoin__symbol">${data.symbol}</span></h3>
             <p class="topcoin__price">${data.current_price.toLocaleString("en-us")}$</p>
     `
-    env.containerTopCoin.innerHTML =template;
+    containerTopCoin.innerHTML =template;
 };
-
 
 /**
  * @description - Ejecuta las acciones necesarias para renderizar las targetas correspondientes.
 */
 async function renderCards(){
     try{
+
+        const containerCards = document.getElementById("containerCards");
         const skeletonCards = skeletonCard();
-        env.containerCards.appendChild(skeletonCards);
+        containerCards.appendChild(skeletonCards);
 
         const topStats = await getTopStats();
         const fragment = document.createDocumentFragment();
@@ -70,11 +70,11 @@ async function renderCards(){
             fragment.appendChild(
                 createCard(name, image, price, symbol,id, porcentage, isFav) 
             );
-            cacheCoins.set(id, {name, image, price, symbol,id, porcentage})
+            env.cacheCoins.set(id, {name, image, price, symbol,id, porcentage})
         };
         
         skeletonCards.remove();
-        env.containerCards.appendChild(fragment);
+        containerCards.appendChild(fragment);
 
     }catch(err){
         console.error(err)

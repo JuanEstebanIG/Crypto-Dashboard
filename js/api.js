@@ -50,7 +50,5 @@ export async function getTimeLapse(id) {
     if(!res || !res.prices || res.status === 429){
         return null;
     };
-
-    console.log(res)
     return res;
 };

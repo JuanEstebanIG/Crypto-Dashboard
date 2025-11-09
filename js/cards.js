@@ -1,8 +1,8 @@
 import { createChart } from "./chart.js";
-import { favoriteManager, updateFavoritePrice } from "./favorites.js";
+import { favoriteManager} from "./favorites.js";
 import { renderError } from "./errors.js";
 import { removeLoading, addLoading} from "./loading.js";
-import { cacheCoins } from "./main.js";
+import { env } from "./cacheManagement.js";
 
 const containerModal = document.getElementById("containerModal");
 
@@ -59,7 +59,7 @@ export async function showModalChart(id,name){
 const actionHandlers = {
     open: (card, id)=>{
         if(containerModal !== null){
-            const name = cacheCoins.get(id).name;
+            const name = env.cacheCoins.get(id).name;
             showModalChart(id,name,card);
         };
     },

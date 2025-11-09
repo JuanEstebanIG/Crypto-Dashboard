@@ -1,14 +1,15 @@
-import { cacheCoins, storageManager } from "./main.js";
+import { storageManager } from "./main.js";
+import {env} from "./cacheManagement.js"
 
 const favContainer = document.getElementById("favoriteSection");
 const favButton = document.getElementById("favoriteButton");
+
 
 /**
 * @description Crea una nueva tarjeta de favorito y modifica la estrella asociada a la card que disparó el evento.
  *@param {Object} data - Data datos referentes a la moneda añadida a fovoritos. 
  * @param {HTMLElement} star - Elemento star asociado a la card de la cual se realizó la modificación
  */
-
 function addFavorite(data, star){
     if(star)star.classList.add("card__button-icon--star");
 
@@ -52,7 +53,7 @@ export function favoriteManager(card,id){
 
     let favStorage = storageManager.readStorage();
     let star = null;
-    const coinData = cacheCoins.get(id);
+    const coinData = env.cacheCoins.get(id);
     
     if(card) star = card.querySelector(".cards__favorite-icon");
     if(!favStorage.hasOwnProperty(id)){

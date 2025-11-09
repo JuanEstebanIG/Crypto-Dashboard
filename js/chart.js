@@ -1,10 +1,6 @@
 import { getTimeLapse } from "./api.js";
-const env = {
-  cacheCharts: new Map(),
-  monoChart: null,
-  comparativeChart: null,
-  currentId: null
-}
+import {cacheChartManger} from "./cacheManagement.js"
+import { env } from "./cacheManagement.js";
 
 function formatteData(data){
   const pricesCoin = data.prices;
@@ -16,7 +12,6 @@ function formatteData(data){
   });
   return {price: valuesClose};
 };
-
 /** 
  * @description Obtiene y trata los datos de los ultimos treinta días de la moneda indicada.
  * @async
@@ -27,8 +22,7 @@ function formatteData(data){
  * @property {number} minPrice - precio de cierre mas bajo de los ultimos treinta.
  * @throws {Error} Si la petición HTTP falla o los datos no son válidos.
  */
-
-async function getDataChart(id) {
+ export async function getDataChart(id) {
   let data = await getTimeLapse(id);
   if (!data) throw new Error("Datos corruptos o inexistentes");
 
@@ -47,37 +41,6 @@ async function getDataChart(id) {
   return { dates, prices, minPrice }
 }
 
-async function cacheManger(id, isMultiChart){
-  try {
-    let data = null;
-
-    if (!env.cacheCharts.has(id)) {
-      data = await getDataChart(id);
-      if (!data) throw new Error("Error al obtener datos.")
-      env.cacheCharts.set(id, data);
-
-      if (env.monoChart && !isMultiChart) env.monoChart.destroy();
-      else if (isMultiChart && env.comparativeChart) env.comparativeChart.destroy();
-    }
-    else {
-
-      if (env.currentId == id) return null;
-
-      data = env.cacheCharts.get(id);
-
-      if (!isMultiChart) env.monoChart.destroy();
-      else if (isMultiChart) env.comparativeChart.destroy();
-    };
-    env.currentId = id;
-    return data;
-  }
-  catch (err){
-    if(isMultiChart && env.multiChart !== null) env.multiChart.destroy();
-    else if (env.monoChart !== null)env.monoChart.destroy();
-    throw err
-  }; 
-};
-
 /**
  * @description - Crea un grafico con los datos de la criptomoneda indicada segun su id.
  * @async
@@ -91,7 +54,7 @@ export async function createChart(id, name) {
   const canvas = document.getElementById("modalCanvas");
   try {
     
-    let data = await cacheManger(id);
+    let data = await cacheChartManger(id);
     if (!data) return null
 
     const dataChart= {
@@ -149,8 +112,8 @@ export async function createChart(id, name) {
 export async function createComparativeChart(canvas, firstId, secondId, nameFirst, nameSecond) {
 
   try {
-    const dataFirst = await cacheManger(firstId, true);
-    const dataSecound = await cacheManger(secondId, true);
+    const dataFirst = await cacheChartManger(firstId, true);
+    const dataSecound = await cacheChartManger(secondId, true);
 
     if (!dataFirst || !dataSecound) return null
 
