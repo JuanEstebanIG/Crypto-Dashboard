@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Cripto Dashboard te permite visualizar el rendimiento de las principales criptomonedas con gráficos interactivos y precios actualizados" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Criptomonedas Dashboard - Seguimiento de Criptomonedas en Tiempo Real</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="header">
+
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__menu-item"><a class="header__menu-link" href="#hero"> Inicio</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#containerCards"> Monedas</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#comparative"> Comparación</a></li>
+            </ul>
+        </nav>
+
+        <div class="header__container-input">
+            <input type="text" id="browserInput" class="header__input" placeholder="Bitcoin">
+            <button type="button" class="header__favorite-button" id="favoriteButton">
+                <span class="header__button-favorite-icon "></span>
+                <span class="header__text-button">Favoritos</span>
+            </button>
+        </div>
+
+    </header>
+
+    <div class="errors" id="containerError">
+
+    </div>
+
+
+    <main class="main" id="main">
+
+        <section class="hero" id="hero">
+
+            <article class="hero__content">
+                <h1 lang="us" class="hero__main-title">Cripto Dashboard</h1>
+                <h4 lang="us" class="hero__secondary-title">Track. Analyze. Succeed.</h4>
+                <p class="hero__paragraph">
+                    Visualiza el rendimiento de las principales criptomonedas con gráficos interactivos y datos en
+                    tiempo real.
+                </p>
+            </article>
+
+        </section>
+        
+        <section class="topcoin" id="topCoin">
+
+        </section>
+
+        <section id="favoriteSection" class="favorites"></section>
+
+        <section class="cards" id="containerCards">
+            <h2 class="cards__title" lang="us">Principales Modenas</h2>
+
+            <article id="containerModal" class="modal">
+                <div class="cards__container-canvas">
+                    <canvas id="modalCanvas">
+
+                    </canvas>
+                </div>
+                <button class="modal__button " data-button-action="close">Cerrar</button>
+            </article>
+            <div class="modal__loading" id="loading">
+                <span lang="us" class="modal__loading-text">Loading...</span>
+            </div>
+
+        </section>
+
+        <section id="comparative" class="comparative">
+            <h2 class="comparative__title">Comparar Monedas</h2>
+
+                <label for="firstList"  class="comparative__label">
+                    <span class="comparative__list-span"> Primera Moneda </span>
+                    <select name="firstCoin" id="firstList" class="comparative__select">
+                        <option value="">-- Select --</option>
+                    </select>
+                </label>
+
+            <article id="ChartComparative" class="comparative__container-canvas">
+                <canvas id="canvasComparation" class="comparative__canvas"></canvas>
+            </article>
+
+                <label for="secondList" class="comparative__label">
+                    <span class="comparative__list-span">Segunda Moneda</span>
+                    <select name="secondCoin" id="secondList" class="comparative__select">
+                        <option value="">-- Select --</option>
+                    </select>
+                </label>
+
+            <button type="button" id="buttonComparative" class="comparative__button">Comparar</button>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer">
+        <p class="footer__paragraph">Hecho con ❤️ por Juan Esteban Isaza</p>
+
+        <ul class="footer__contact-list">
+            <li class="footer__contact-item">
+                <a href="mailto:isazaj601@gmail.com" target="_blank" class="footer__link">Contacto: 
+                    <span
+                        class="footer__mail">isazaj601@gmail.com
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
