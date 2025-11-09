@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="og:title" content="Criptomonedas Dashboard - Seguimiento de Criptomonedas en Tiempo Real">
+    <meta name="og:description" content="Cripto Dashboard te permite visualizar el rendimiento de las principales criptomonedas con gráficos interactivos y precios actualizados">
+    <meta property="og:image" content="https://juanestebanig.github.io/Crypto-Dashboard/#containerCards">
     <meta name="description"
-        content="Cripto Dashboard te permite visualizar el rendimiento de las principales criptomonedas con gráficos interactivos y precios actualizados" />
+    content="Cripto Dashboard te permite visualizar el rendimiento de las principales criptomonedas con gráficos interactivos y precios actualizados" />
     <link rel="stylesheet" href="./css/styles.css">
     <title>Criptomonedas Dashboard - Seguimiento de Criptomonedas en Tiempo Real</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,7 +27,7 @@
 
         <div class="header__container-input">
             <input type="text" id="browserInput" class="header__input" placeholder="Bitcoin">
-            <button type="button" class="header__favorite-button" id="favoriteButton">
+            <button type="button" class="header__favorite-button" id="favoriteButton" aria-label="Abrir lista de monedas favoritas">
                 <span class="header__button-favorite-icon "></span>
                 <span class="header__text-button">Favoritos</span>
             </button>
@@ -67,7 +70,7 @@
 
                     </canvas>
                 </div>
-                <button class="modal__button " data-button-action="close">Cerrar</button>
+                <button class="modal__button " aria-label="Cerrar grafico" data-button-action="close">Cerrar</button>
             </article>
             <div class="modal__loading" id="loading">
                 <span lang="us" class="modal__loading-text">Loading...</span>
@@ -96,7 +99,7 @@
                     </select>
                 </label>
 
-            <button type="button" id="buttonComparative" class="comparative__button">Comparar</button>
+            <button type="button" id="buttonComparative" aria-label="Ver grafico comparativo de dos monedas" class="comparative__button">Comparar</button>
         </section>
     </main>
 

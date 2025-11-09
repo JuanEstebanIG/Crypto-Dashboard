@@ -91,7 +91,7 @@ export function createFavoriteCard(val,isFragment){
                     <span class="favorite__name-coin">${name}</span>
                     <span class="favorite__symbol-coin">${symbol}</span>
                     <span class="favorite__price-coin">${price.toLocaleString("en-us")}$ USD</span>
-                    <span class="favorite__favorite-icon" data-button-action="toggle-favorite"></span>
+                    <span class="favorite__favorite-icon" aria-label="Eliminar de lista de favoritos" data-button-action="toggle-favorite"></span>
         `;
         favItem.innerHTML = content;
 

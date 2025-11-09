@@ -6,7 +6,6 @@ import { cacheCoins } from "./main.js";
 
 const containerModal = document.getElementById("containerModal");
 
-
 export function createCard(name, image, price, symbol,id,percentage, isFav){      
     try{
         if(!name || !image || price == null || !symbol || !id || percentage == null){
@@ -20,14 +19,14 @@ export function createCard(name, image, price, symbol,id,percentage, isFav){
         price = price.toLocaleString("en-us");
 
         card.innerHTML= `
-            <figure>
+            <figure aria-label="logo de ${name}">
                 <img src="${image}" alt="criptomoneda ${name} logo" class="card__img">
             </figure>
             <h3 class="card__title">${name}<span class="card__symbol">${symbol}</span></h3>
             <span class="card__price">${price}$ USD</span>
-            <span class="cards__favorite-icon" data-button-action="toggle-favorite"></span>
+            <span class="cards__favorite-icon" aria-label ="Añadir a lista de favoritos" data-button-action="toggle-favorite"></span>
             <span class="card__percentage">${percentage.toFixed(2)}%</span>
-            <button class="card__button" aria-label="Abrir estadisticas." data-button-action="open" >Estadisticas <img src="./assets/statistics.svg" class="card__button-icon"> </button>
+            <button class="card__button" aria-label="Abrir estadisticas" data-button-action="open" >Estadisticas <img src="./assets/statistics.svg" class="card__button-icon" loading="lazy"> </button>
         `;
 
         card.classList.add("card");
