@@ -9,7 +9,7 @@ export const env = {
 
 }
 
-export async function cacheChartManger(id, isMultiChart){
+export async function cacheChartManager(id, isMultiChart){
   try {
     let data = null;
 

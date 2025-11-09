@@ -1,6 +1,5 @@
 import { getTimeLapse } from "./api.js";
-import {cacheChartManger} from "./cacheManagement.js"
-import { env } from "./cacheManagement.js";
+import { env , cacheChartManager } from "./cacheManagement.js";
 
 function formatteData(data){
   const pricesCoin = data.prices;
@@ -54,7 +53,7 @@ export async function createChart(id, name) {
   const canvas = document.getElementById("modalCanvas");
   try {
     
-    let data = await cacheChartManger(id);
+    let data = await cacheChartManager(id);
     if (!data) return null
 
     const dataChart= {
@@ -112,8 +111,8 @@ export async function createChart(id, name) {
 export async function createComparativeChart(canvas, firstId, secondId, nameFirst, nameSecond) {
 
   try {
-    const dataFirst = await cacheChartManger(firstId, true);
-    const dataSecound = await cacheChartManger(secondId, true);
+    const dataFirst = await cacheChartManager(firstId, true);
+    const dataSecound = await cacheChartManager(secondId, true);
 
     if (!dataFirst || !dataSecound) return null
 
@@ -162,6 +161,6 @@ export async function createComparativeChart(canvas, firstId, secondId, nameFirs
     });
 
   }catch(err){
-    console.error("error at create chart");
+    console.error("error at create chart", err);
   }
 };
